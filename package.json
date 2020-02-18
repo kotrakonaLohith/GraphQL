@@ -1,0 +1,24 @@
+{
+  "name": "GraphQL",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "forever start app.js",
+    "stop": "forever stopall"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kotrakonaLohith/GraphQL.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kotrakonaLohith/GraphQL/issues"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "homepage": "https://github.com/kotrakonaLohith/GraphQL#readme"
+}
