@@ -18,6 +18,20 @@ type Query {
     releaseYear: Int
     rating: Float
     inStock: Boolean!
+    me: User!
+    post: Post!
+}
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    age: Int
+}
+type Post {
+    id:ID!
+    title: String!
+    body: String!
+    published: Boolean!
 }
 `;
 
@@ -63,6 +77,22 @@ const resolvers = {
     },
     inStock() {
       return true;
+    },
+    me() {
+      return {
+        id: "sdfdsfsd3e5423423",
+        name: "Kotrakona Lohith Reddy",
+        email: "lohithr516@gmail.com",
+        age: 26
+      };
+    },
+    post() {
+      return {
+        id: "asdgashjdgasdhjadsjhasdja213216732163",
+        title: "My Blog",
+        body: "This is my first post",
+        published: true
+      };
     }
   }
 };
