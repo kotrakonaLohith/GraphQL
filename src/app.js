@@ -3,6 +3,27 @@ import { GraphQLServer } from "graphql-yoga";
 // type definitions
 // string, Boolean, Int, Float, ID (scalar types)
 
+const users = [
+  {
+    id: "1",
+    name: "lohith",
+    email: "lohithr516@gmail.com",
+    age: 27
+  },
+  {
+    id: "2",
+    name: "Rohith",
+    email: "rohith09@gmail.com",
+    age: 23
+  },
+  {
+    id: "3",
+    name: "neethu",
+    email: "neethu10@gmail.com",
+    age: 22
+  }
+];
+
 const typeDefs = `
 type Query {
     hello: String!
@@ -21,7 +42,9 @@ type Query {
     me: User!
     post: Post!
     greeting(name: String!): String!
-    add(first: Float!,second: Float!): String
+    add(numbers:[Float!]!): Float!
+    grades:[Int!]!
+    users(query:String!):[User!]!
 }
 type User {
     id: ID!
@@ -49,13 +72,31 @@ const resolvers = {
         return "Hello";
       }
     },
-    add(parent, args, ctx, info) {
-      if (args.first && args.second) {
-        return `Sum is ${args.first + args.second}`;
+
+    users(parent, args, ctx, info) {
+      if (args.query) {
+        return users;
       } else {
-        return "wrong pattern";
+        return users.filter(user => {
+          return user.name.toLowerCase().includes(args.query.toLowerCase());
+        });
       }
     },
+
+    add(parent, args, ctx, info) {
+      if (args.numbers.length === 0) {
+        return 0;
+      }
+      // reduce take in 2 args "acc" as 1st value and the adjacent value as 2nd arg
+      return args.numbers.reduce((acc, currentVal) => {
+        return acc + currentVal;
+      });
+    },
+
+    grades(parent, args, ctx, info) {
+      return [99, 80, 93];
+    },
+
     hello() {
       return "This is my first query";
     },
