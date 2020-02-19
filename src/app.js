@@ -20,6 +20,8 @@ type Query {
     inStock: Boolean!
     me: User!
     post: Post!
+    greeting(name: String!): String!
+    add(first: Float!,second: Float!): String
 }
 type User {
     id: ID!
@@ -39,6 +41,21 @@ type Post {
 
 const resolvers = {
   Query: {
+    greeting(parent, args, ctx, info) {
+      console.log(args);
+      if (args.name) {
+        return `Hello ${args.name}`;
+      } else {
+        return "Hello";
+      }
+    },
+    add(parent, args, ctx, info) {
+      if (args.first && args.second) {
+        return `Sum is ${args.first + args.second}`;
+      } else {
+        return "wrong pattern";
+      }
+    },
     hello() {
       return "This is my first query";
     },
