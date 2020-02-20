@@ -29,7 +29,7 @@ const posts = [{
     title: 'GraphQL 201',
     body: 'This is an advanced GraphQL post...',
     published: false,
-    author: '2'
+    author: '1'
 }, {
     id: '12',
     title: 'Programming Music',
@@ -39,29 +39,35 @@ const posts = [{
 }]
 
 const comments = [{
-  id: '122',
-  text:'This is my first text',
-  author:'1',
-  post:'asdshasghd62378324'
+    id: '102',
+    text: 'This worked well for me. Thanks!',
+    author: '3',
+    post: '10'
 }, {
-  id: '113',
-  text:'Hey you are awesome',
-  author:'1',
-  post:'234sfsdfsdf32342342'
+    id: '103',
+    text: 'Glad you enjoyed it.',
+    author: '1',
+    post: '10'
 }, {
-  id: '125',
-  text:'you want some come get some',
-  author:'2',
-  post:'edwrewe423543563rewf3'
+    id: '104',
+    text: 'This did no work.',
+    author: '2',
+    post: '11'
+}, {
+    id: '105',
+    text: 'Nevermind. I got it to work.',
+    author: '1',
+    post: '11'
 }]
+
 // Type definitions (schema)
 const typeDefs = `
     type Query {
         users(query: String): [User!]!
         posts(query: String): [Post!]!
+        comments: [Comment!]!
         me: User!
         post: Post!
-        comments:[Comment!]!
     }
 
     type User {
@@ -81,12 +87,13 @@ const typeDefs = `
         author: User!
         comments: [Comment!]!
     }
+
     type Comment {
-      id: ID!
-      text: String!
-      author: User!
-      posts:[Post!]!
-  }
+        id: ID!
+        text: String!
+        author: User!
+        post: Post!
+    }
 `
 
 // Resolvers
@@ -112,10 +119,9 @@ const resolvers = {
                 return isTitleMatch || isBodyMatch
             })
         },
-        comments(parent,args,ctx,info){
-return comments
+        comments(parent, args, ctx, info) {
+            return comments
         },
-
         me() {
             return {
                 id: '123098',
@@ -132,44 +138,41 @@ return comments
             }
         }
     },
-
     Post: {
         author(parent, args, ctx, info) {
             return users.find((user) => {
                 return user.id === parent.author
             })
         },
-        comments(parent,args,ctx,info){
-          return comments.find((comment) => {
-            return comment.post === parent.id
-          })
+        comments(parent, args, ctx, info) {
+            return comments.filter((comment) => {
+                return comment.post === parent.id
+            })
         }
     },
-
-    Comment:{
-      author(parent,args,ctx,info){
-        return users.find((user) => {
-          return user.id === parent.author
-        }) 
-      },
-      post(parent,args,ctx,info){
-        return posts.find((post)=>{
-          return post.id === parent.post
-        })
-      }
+    Comment: {
+        author(parent, args, ctx, info) {
+            return users.find((user) => {
+                return user.id === parent.author
+            })
+        },
+        post(parent, args, ctx, info) {
+            return posts.find((post) => {
+                return post.id === parent.post
+            })
+        }
     },
-
-    User:{
-      posts(parent,args,ctx,info){
-        return posts.filter((post)=>{
-          return post.author === parent.id
-        })
-      },
-      comments(parent,args,ctx,info){
-        return comments.filter((comment) => {
-          return comment.author === parent.id
-        })
-      }
+    User: {
+        posts(parent, args, ctx, info) {
+            return posts.filter((post) => {
+                return post.author === parent.id
+            })
+        },
+        comments(parent, args, ctx, info) {
+            return comments.filter((comment) => {
+                return comment.author === parent.id
+            })
+        }
     }
 }
 
