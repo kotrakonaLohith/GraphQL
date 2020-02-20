@@ -60,6 +60,8 @@ const comments = [{
     post: '11'
 }]
 
+//sample code
+
 // Type definitions (schema)
 const typeDefs = `
     type Query {
