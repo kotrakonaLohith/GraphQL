@@ -1,4 +1,4 @@
-import { GraphQLServer } from "graphql-yoga";
+import {GraphQLServer} from "graphql-yoga";
 
 // type definitions
 // string, Boolean, Int, Float, ID (scalar types)
