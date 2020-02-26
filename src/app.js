@@ -9,16 +9,16 @@ import Mutation from './resolvers/Mutation'
 
 const server = new GraphQLServer({
     typeDefs:'./src/schema.graphql',
-    resolvers:{
+    resolvers: {
         Query,
         Mutation,
         User,
         Post,
         Comment
-    },
+     },
     context:{
         db
-    }
+     }
 })
 
 server.start(() => {

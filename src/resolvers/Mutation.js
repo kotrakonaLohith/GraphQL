@@ -61,6 +61,7 @@ const Mutation = {
         db.posts.push(post)
         return post
     },
+
     createComment(parent,args,{db},info){
         const userExists = db.users.some((user) => user.id === args.data.author)
         const postExists = db.posts.some((post) => post.id === args.data.post && post.published)
