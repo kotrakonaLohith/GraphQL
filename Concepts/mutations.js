@@ -182,9 +182,9 @@ createUser(parent,args,ctx,info){
     return user
 },
 
-deleteUser(parent,atgs,ctx,info){
+deleteUser(parent,args,ctx,info){
     const userIndex = users.findIndex((user) => user.id === args.id)
-    if(userIndex == -1){
+    if(userIndex === -1){
         throw new Error('user not found')
     }
     const deletedUsers = users.splice(userIndex,1)
